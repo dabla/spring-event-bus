@@ -20,7 +20,7 @@ import org.unitils.UnitilsBlockJUnit4ClassRunner;
 import org.unitils.inject.annotation.InjectIntoByType;
 import org.unitils.inject.annotation.TestedObject;
 
-import be.dabla.AbstractTest;
+import be.dabla.test.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(UnitilsBlockJUnit4ClassRunner.class)

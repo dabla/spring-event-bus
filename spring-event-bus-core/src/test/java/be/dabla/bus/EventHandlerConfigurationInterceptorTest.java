@@ -17,8 +17,8 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.unitils.UnitilsBlockJUnit4ClassRunner;
 import org.unitils.inject.annotation.TestedObject;
 
-import be.dabla.AbstractTest;
 import be.dabla.spring.BeanLookup;
+import be.dabla.test.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(UnitilsBlockJUnit4ClassRunner.class)

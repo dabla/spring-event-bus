@@ -1,4 +1,4 @@
-package be.dabla;
+package be.dabla.test;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

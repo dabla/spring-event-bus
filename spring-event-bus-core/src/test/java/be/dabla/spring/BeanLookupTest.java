@@ -9,8 +9,8 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.ApplicationContext;
 
-import be.dabla.AbstractTest;
 import be.dabla.spring.BeanLookup;
+import be.dabla.test.AbstractTest;
 
 
 public class BeanLookupTest extends AbstractTest {

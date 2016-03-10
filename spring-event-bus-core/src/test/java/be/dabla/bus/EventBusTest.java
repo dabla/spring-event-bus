@@ -23,7 +23,7 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import org.unitils.UnitilsBlockJUnit4ClassRunner;
 import org.unitils.inject.annotation.TestedObject;
 
-import be.dabla.AbstractTest;
+import be.dabla.test.AbstractTest;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(UnitilsBlockJUnit4ClassRunner.class)

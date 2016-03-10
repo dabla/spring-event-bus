@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.unitils.inject.annotation.TestedObject;
 
-import be.dabla.AbstractTest;
+import be.dabla.test.AbstractTest;
 
 
 public class EventPosterTest extends AbstractTest {

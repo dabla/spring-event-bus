@@ -21,8 +21,8 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import org.unitils.UnitilsBlockJUnit4ClassRunner;
 import org.unitils.inject.annotation.TestedObject;
 
-import be.dabla.AbstractTest;
 import be.dabla.concurrent.LimitedExecutorWrapper;
+import be.dabla.test.AbstractTest;
 
 import com.google.common.eventbus.AsyncEventBus;
 
