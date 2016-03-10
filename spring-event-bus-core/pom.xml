@@ -108,7 +108,13 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
+			<scope>provided</scope>
 		</dependency>
+		<dependency>
+	        <groupId>javax.persistence</groupId>
+	        <artifactId>persistence-api</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
