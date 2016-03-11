@@ -1,4 +1,6 @@
 # Spring-Event-Bus
+[![Build Status](https://travis-ci.org/dabla/spring-event-bus.svg?branch=master)](https://travis-ci.org/dabla/spring-event-bus)
+
 ## How to use in your project
 
 Example for Maven:
