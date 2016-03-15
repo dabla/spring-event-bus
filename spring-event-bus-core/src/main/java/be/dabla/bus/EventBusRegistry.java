@@ -8,40 +8,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.google.common.base.Function;
 
-@Named
 public class EventBusRegistry {
-	@Inject
-    private List<EventHandler> eventHandlers;
-	
-	private Map<String, Collection<EventHandler>> managedBy;
-	
-	EventBusRegistry() {}
-	
-	@PostConstruct
-	void create() {
-		managedBy = index(eventHandlers, managedBy()).asMap();
-	}
-	
-	public Set<String> getNames() {
-		return managedBy.keySet();
-	}
-	
-	public Collection<EventHandler> getEventHandlers(String name) {
-		return managedBy.get(name);
-	}
-	
-	private Function<EventHandler, String> managedBy() {
-		return new Function<EventHandler, String>() {
-			@Override
-			public String apply(EventHandler eventHandler) {
-				return nameResolver().resolve(eventHandler);
-			}
-		};
-	}
+    private final Map<String, Collection<EventHandler>> managedBy;
+
+    private EventBusRegistry(Map<String, Collection<EventHandler>> managedBy) {
+		this.managedBy = managedBy;
+    }
+
+    static EventBusRegistry eventBusRegistry(List<EventHandler> eventHandlers) {
+        return new EventBusRegistry(index(eventHandlers, managedBy()).asMap());
+    }
+
+    public Set<String> getNames() {
+        return managedBy.keySet();
+    }
+
+    public Collection<EventHandler> getEventHandlers(String name) {
+        return managedBy.get(name);
+    }
+
+    private static Function<EventHandler, String> managedBy() {
+        return new Function<EventHandler, String>() {
+            @Override
+            public String apply(EventHandler eventHandler) {
+                return nameResolver().resolve(eventHandler);
+            }
+        };
+    }
 }
