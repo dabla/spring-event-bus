@@ -2,6 +2,7 @@ package be.dabla.bus;
 
 import static be.dabla.bus.EventBusRegistry.eventBusRegistry;
 import static com.google.common.collect.Lists.newArrayList;
+import static java.lang.Integer.parseInt;
 
 import java.util.List;
 
@@ -34,11 +35,16 @@ public class BusConfiguration {
     	List<EventBus> eventBuses = newArrayList();
     	
         for (String name : eventBusRegistry.getNames()) {
-            EventBus eventBus = eventBusFactory.create(name, eventBusRegistry.getEventHandlers(name));
+            int maxNumberOfThreads = getMaxNumberOfThreads(name);
+            EventBus eventBus = eventBusFactory.create(name, maxNumberOfThreads, eventBusRegistry.getEventHandlers(name));
             eventBuses.add(eventBus);
             beanFactory.registerSingleton(name, eventBus);
         }
         
         return eventBuses;
     }
+    
+    private int getMaxNumberOfThreads(String name) {
+		return parseInt(beanFactory.resolveEmbeddedValue("${thread.max." + name + ".size:25}"));
+	}
 }

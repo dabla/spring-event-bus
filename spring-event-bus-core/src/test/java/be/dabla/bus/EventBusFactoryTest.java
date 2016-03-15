@@ -38,8 +38,6 @@ public class EventBusFactoryTest extends AbstractTest {
 	@Mock
 	@InjectIntoByType
 	private ExecutorService executor;
-	@InjectIntoByType
-    private int maxNumberOfThreads = MAX_NUMBER_OF_THREADS;
 	
 	@TestedObject
 	private EventBusFactory factory;
@@ -52,6 +50,6 @@ public class EventBusFactoryTest extends AbstractTest {
 	
 	@Test
 	public void create() throws Exception {
-		assertThat(factory.create(NAME, newArrayList(eventHandler))).isEqualTo(eventBus);
+		assertThat(factory.create(NAME, MAX_NUMBER_OF_THREADS, newArrayList(eventHandler))).isEqualTo(eventBus);
 	}
 }
