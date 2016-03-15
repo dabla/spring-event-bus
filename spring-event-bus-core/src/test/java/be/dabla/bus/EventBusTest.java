@@ -51,6 +51,8 @@ public class EventBusTest extends AbstractTest {
 	public void setUp() {
 		mockStatic(AsyncEventBusWrapper.class);
 		when(asyncEventBusWrapper(executor, MAX_NUMBER_OF_THREADS)).thenReturn(asyncEventBus, asyncCommandBus);
+		when(asyncEventBus.isIdle()).thenReturn(true);
+		when(asyncCommandBus.isIdle()).thenReturn(true);
 		eventBus = eventBus(NAME, MAX_NUMBER_OF_THREADS, executor, newArrayList(eventHandler));
 	}
 	
@@ -97,5 +99,22 @@ public class EventBusTest extends AbstractTest {
 	@Test
 	public void getName() throws Exception {
 		assertThat(eventBus.getName()).isEqualTo(NAME);
+	}
+	
+	@Test
+	public void isIdle_whenAsyncEventBusAndAsyncCommandBusIsIdle_thenReturnTrue() throws Exception {
+		assertThat(eventBus.isIdle()).isTrue();
+	}
+	
+	@Test
+	public void isIdle_whenAsyncEventBusIsIdleAndAsyncCommandBusIsBusy_thenReturnTrue() throws Exception {
+		when(asyncCommandBus.isIdle()).thenReturn(false);
+		assertThat(eventBus.isIdle()).isFalse();
+	}
+	
+	@Test
+	public void isIdle_whenAsyncEventBusIsBusyAndAsyncCommandBusIsIdle_thenReturnTrue() throws Exception {
+		when(asyncEventBus.isIdle()).thenReturn(false);
+		assertThat(eventBus.isIdle()).isFalse();
 	}
 }

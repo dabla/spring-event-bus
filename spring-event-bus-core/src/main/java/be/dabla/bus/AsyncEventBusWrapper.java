@@ -45,4 +45,8 @@ public class AsyncEventBusWrapper {
     void shutdown() {
         limitedExecutorWrapper.shutdownNow();
     }
+    
+    boolean isIdle() {
+    	return getNumberOfThreads() == 0;
+    }
 }

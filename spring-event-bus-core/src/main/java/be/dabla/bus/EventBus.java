@@ -67,4 +67,8 @@ public class EventBus implements DisposableBean {
     public String getName() {
         return name;
     }
+    
+    public boolean isIdle() {
+    	return eventBus().isIdle() && commandBus().isIdle(); 
+    }
 }

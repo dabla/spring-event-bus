@@ -21,10 +21,10 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 import org.unitils.UnitilsBlockJUnit4ClassRunner;
 import org.unitils.inject.annotation.TestedObject;
 
+import com.google.common.eventbus.AsyncEventBus;
+
 import be.dabla.concurrent.LimitedExecutorWrapper;
 import be.dabla.test.AbstractTest;
-
-import com.google.common.eventbus.AsyncEventBus;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(UnitilsBlockJUnit4ClassRunner.class)
@@ -86,5 +86,16 @@ public class AsyncEventBusWrapperTest extends AbstractTest {
 		wrapper.setMaxNumberOfThreads(MAX_NUMBER_OF_THREADS);
 		
 		verify(limitedExecutorWrapper).setMaxNumberOfThreads(MAX_NUMBER_OF_THREADS);
+	}
+	
+	@Test
+	public void isIdle_whenNumberOfThreadsIsZero_thenReturnTrue() {
+		assertThat(wrapper.isIdle()).isTrue();
+	}
+	
+	@Test
+	public void isIdle_whenNumberOfThreadsIsNotZero_thenReturnFalse() {
+		when(limitedExecutorWrapper.getNumberOfThreads()).thenReturn(MAX_NUMBER_OF_THREADS);
+		assertThat(wrapper.isIdle()).isFalse();
 	}
 }
