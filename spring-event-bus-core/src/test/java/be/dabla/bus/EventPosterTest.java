@@ -4,6 +4,7 @@ import static be.dabla.bus.EventPoster.anEventPoster;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.fest.reflect.core.Reflection.field;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import be.dabla.test.AbstractTest;
 
 
 public class EventPosterTest extends AbstractTest {
-    @Mock
+	@Mock
     private Event event;
     @Mock
     private Command command;
@@ -40,6 +41,15 @@ public class EventPosterTest extends AbstractTest {
     }
     
     @Test
+    public void post_whenEventButNoEventBusesPresent() throws Exception {
+    	field("eventBuses").ofType(List.class).in(eventPoster).set(null);
+    	
+    	eventPoster.post(event);
+    	
+    	verifyZeroInteractions(eventBus, anotherEventBus);
+    }
+    
+    @Test
     public void postAfterCommit_whenEvent() throws Exception {
         eventPoster.postAfterCommit(event);
         
@@ -53,6 +63,15 @@ public class EventPosterTest extends AbstractTest {
         
         verify(eventBus).post(command);
         verify(anotherEventBus).post(command);
+    }
+    
+    @Test
+    public void post_whenCommandButNoEventBusesPresent() throws Exception {
+    	field("eventBuses").ofType(List.class).in(eventPoster).set(null);
+    	
+    	eventPoster.post(command);
+    	
+    	verifyZeroInteractions(eventBus, anotherEventBus);
     }
     
     @Test

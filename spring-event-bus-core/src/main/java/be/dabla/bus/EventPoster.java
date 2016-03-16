@@ -3,6 +3,7 @@ package be.dabla.bus;
 import static org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive;
 import static org.springframework.transaction.support.TransactionSynchronizationManager.registerSynchronization;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,13 +25,13 @@ public class EventPoster {
     }
 
     public <COMMAND extends Command> void post(COMMAND command) {
-        for (EventBus eventBus : eventBuses) {
+        for (EventBus eventBus : eventBuses()) {
             eventBus.post(command);
         }
     }
 
     public <EVENT extends Event> void post(EVENT event) {
-        for (EventBus eventBus : eventBuses) {
+        for (EventBus eventBus : eventBuses()) {
             eventBus.post(event);
         }
     }
@@ -69,5 +70,9 @@ public class EventPoster {
         }
 
         poster.execute();
+    }
+    
+    private List<EventBus> eventBuses() {
+    	return eventBuses != null ? eventBuses : Collections.<EventBus>emptyList();
     }
 }
