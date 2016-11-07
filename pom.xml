@@ -4,10 +4,10 @@
 	<groupId>be.dabla</groupId>
 	<version>1.0-SNAPSHOT</version>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>spring-event-bus</artifactId>
+	<artifactId>spring-event-bus-parent</artifactId>
 	<packaging>pom</packaging>
 
-	<name>spring-event-bus</name>
+	<name>spring-event-bus-parent</name>
 	<description>Guava event bus integration with Spring</description>
 	<url>https://github.com/dabla/spring-event-bus</url>
 
@@ -179,7 +179,13 @@
 			<dependency>
 				<groupId>be.dabla</groupId>
 				<artifactId>parallel-iterable</artifactId>
-				<version>1.3</version>
+				<version>1.6-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>be.dabla</groupId>
+				<artifactId>parallel-iterable</artifactId>
+				<type>test-jar</type>
+				<version>1.6-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -280,7 +286,7 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>spring-event-bus-core</module>
+		<module>spring-event-bus</module>
 		<module>spring-event-bus-samples</module>
 	</modules>
 	

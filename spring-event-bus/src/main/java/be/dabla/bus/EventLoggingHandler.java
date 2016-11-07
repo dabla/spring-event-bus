@@ -4,16 +4,16 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.io.Serializable;
 
-import javax.inject.Named;
-
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
 
 
-@Named
+@Component
 public class EventLoggingHandler implements EventHandler {
+
     private static final Logger LOGGER = getLogger(EventLoggingHandler.class);
     
     @Subscribe

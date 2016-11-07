@@ -1,8 +1,8 @@
 package be.dabla.bus.greetings;
 
+import static be.dabla.asserters.Poller.aPoller;
 import static be.dabla.bus.greetings.SaidHalloEvent.saidHalloEvent;
 import static be.dabla.bus.greetings.SayHalloCommand.sayHalloCommand;
-import static be.dabla.test.Poller.aPoller;
 import static org.mockito.Mockito.inOrder;
 
 import javax.inject.Inject;
@@ -12,7 +12,7 @@ import org.mockito.InOrder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
-import be.dabla.test.Assertion;
+import be.dabla.asserters.Assertion;
 
 @ContextConfiguration(classes={GreetingsConfiguration.class})
 public class GreetingsHandlerIntegrationTest extends AbstractJUnit4SpringContextTests {

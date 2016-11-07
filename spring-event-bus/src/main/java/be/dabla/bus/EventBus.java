@@ -7,9 +7,8 @@ import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
-import org.springframework.beans.factory.DisposableBean;
 
-public class EventBus implements DisposableBean {
+public class EventBus {
     private static final Logger LOGGER = getLogger(EventBus.class);
 
     private final String name;
@@ -58,8 +57,7 @@ public class EventBus implements DisposableBean {
         return commandBus;
     }
 
-    @Override
-    public void destroy() throws Exception {
+    void destroy() {
         eventBus.shutdown();
         commandBus.shutdown();
     }

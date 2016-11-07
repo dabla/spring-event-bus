@@ -1,13 +1,13 @@
 package be.dabla.bus;
 
+import static org.slf4j.LoggerFactory.getLogger;
 import static org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive;
 import static org.springframework.transaction.support.TransactionSynchronizationManager.registerSynchronization;
 
 import java.util.Collections;
 import java.util.List;
-
-import javax.inject.Inject;
-
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.transaction.support.TransactionSynchronizationAdapter;
 
@@ -15,7 +15,8 @@ import be.dabla.parallel.base.Callback;
 
 @Configurable
 public class EventPoster {
-    @Inject
+    private static final Logger LOGGER = getLogger(EventPoster.class);
+    @Autowired
     private List<EventBus> eventBuses;
 
     private EventPoster() {}
@@ -62,17 +63,18 @@ public class EventPoster {
                     new TransactionSynchronizationAdapter() {
                         @Override
                         public void afterCommit() {
+                            LOGGER.info("postAfterCommit : poster.execute");
                             poster.execute();
                         }
                     }
                 );
             return;
         }
-
+        LOGGER.info("postAfterCommit : Synchronization is not Active : poster.execute");
         poster.execute();
     }
     
     private List<EventBus> eventBuses() {
     	return eventBuses != null ? eventBuses : Collections.<EventBus>emptyList();
     }
-}
+} 

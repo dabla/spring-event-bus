@@ -4,9 +4,9 @@ import static be.dabla.concurrent.LimitedExecutorWrapper.limitedExecutorWrapper;
 
 import java.util.concurrent.ExecutorService;
 
-import be.dabla.concurrent.LimitedExecutorWrapper;
-
 import com.google.common.eventbus.AsyncEventBus;
+
+import be.dabla.concurrent.LimitedExecutorWrapper;
 
 public class AsyncEventBusWrapper {
     private final LimitedExecutorWrapper limitedExecutorWrapper;
