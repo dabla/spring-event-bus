@@ -1,35 +1,40 @@
 package be.dabla.bus;
 
+import static com.google.common.collect.FluentIterable.from;
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Integer.parseInt;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.stereotype.Component;
 
-@Component
+import com.google.common.base.Function;
+
+@Configurable
 class EventBusFactoryPostProcessor {
     @Autowired
     private DefaultListableBeanFactory beanFactory;
     @Autowired
-    private EventBusRegistry eventBusRegistry;
-    @Autowired
     private EventBusFactory eventBusFactory;
 
-    @PostConstruct
-    public void create() {
-        for (String name : eventBusRegistry.getNames()) {
-            if (!beanFactory.containsBean(name)) {
-            	int maxNumberOfThreads = getMaxNumberOfThreads(name);
-                EventBus eventBus = eventBusFactory.create(name, maxNumberOfThreads, eventBusRegistry.getEventHandlers(name));
-                beanFactory.registerSingleton(name, eventBus);
-            }
-        }
+    public List<EventBus> create(EventBusRegistry eventBusRegistry) {
+    	return newArrayList(from(eventBusRegistry.getNames()).transform(toEventBus(eventBusRegistry)));
     }
     
-    @PreDestroy
+    private Function<String, EventBus> toEventBus(final EventBusRegistry eventBusRegistry) {
+		return new Function<String, EventBus>() {
+			@Override
+			public EventBus apply(String name) {
+				int maxNumberOfThreads = getMaxNumberOfThreads(name);
+	            EventBus eventBus = eventBusFactory.create(name, maxNumberOfThreads, eventBusRegistry.getEventHandlers(name));
+	            beanFactory.registerSingleton(name, eventBus);
+	            return eventBus;
+			}
+		};
+	}
+
     public void destroy() {
     	for (EventBus eventBus : beanFactory.getBeansOfType(EventBus.class).values()) {
     		eventBus.destroy();
